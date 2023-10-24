@@ -5,6 +5,8 @@
  *
  * @s: string to calculate the length
  *
+ * @length: length of the string
+ *
  * Return - return the length of the string s
  *
 */
