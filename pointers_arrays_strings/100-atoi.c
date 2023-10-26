@@ -16,16 +16,12 @@ int _atoi(char *s)
 	{
 		if (s[i] == '-')
 		{
-			sign = -1;
-			i = 1;
+			sign *= -1;
+			i++;
 		}
 		if (s[i] >= '0' && s[i] <= '9')
 		{
 			number = (number * 10) + (s[i] - '0');
-		}
-		else
-		{
-			break;
 		}
 	}
 	if (sign < 0)
