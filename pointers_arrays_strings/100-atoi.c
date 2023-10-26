@@ -21,7 +21,7 @@ int _atoi(char *s)
 	}
 	for (; (s[i] >= '0' && s[i] <= '9') && s[i]; i++)
 	{
-			number = (number * 10) + (s[i] - '0');
+		number = (number * 10) + (s[i] - '0');
 	}
 	if (sign < 0)
 	{
