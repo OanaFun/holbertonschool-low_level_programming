@@ -12,17 +12,16 @@ int _atoi(char *s)
 {
 	int i, sign = 1, number = 0;
 
-	for (i = 0; s[i] != '\0'; i++)
+	for (i = 0; s[i] != '\0' && (s[i] < '0' || s[i] > '9'); i++)
 	{
 		if (s[i] == '-')
 		{
 			sign *= -1;
-			i++;
 		}
-		if (s[i] >= '0' && s[i] <= '9')
-		{
+	}
+	for (; (s[i] >= '0' && s[i] <= '9') && s[i]; i++)
+	{
 			number = (number * 10) + (s[i] - '0');
-		}
 	}
 	if (sign < 0)
 	{
