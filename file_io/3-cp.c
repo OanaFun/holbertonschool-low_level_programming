@@ -1,6 +1,26 @@
 #include "main.h"
 
 /**
+ * create_buffer - allocates 1024 bytes for a buffer
+ * @file: the name of the file buffer is storing chars for
+ * Return: a pointer to the newly-allocated buffer
+ */
+char *create_buffer(char *file)
+{
+	char *buffer;
+
+	buffer = malloc(sizeof(char) * 1024);
+
+	if (buffer == NULL)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
+		exit(99);
+	}
+
+	return (buffer);
+}
+
+/**
  * close_file - closes files
  * @file: file to be closed
  */
@@ -46,7 +66,7 @@ void print_error_99(char *error, char *argv, int code)
 int main(int argc, char *argv[])
 {
 	int file_from, file_to, r, w;
-	char buffer[1024];
+	char *buffer;
 
 	if (argc != 3)
 	{
@@ -54,24 +74,32 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
+	buffer = create_buffer(argv[2]);
 	file_from = open(argv[1], O_RDONLY);
 	r = read(file_from, buffer, 1024);
 	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
 		if (file_from == -1 || r == -1)
+		{
 			print_error_98("Error: Can't read from file %s\n", argv[1], 98);
+			free(buffer);
+		}
 
 		w = write(file_to, buffer, r);
 
 		if (file_to == -1 || w == -1)
+		{
 			print_error_98("Error: Can't write to %s\n", argv[2], 99);
+			free(buffer);
+		}
 
 		r = read(file_from, buffer, 1024);
 		file_to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (r > 0);
 
+	free(buffer);
 	close_file(file_from);
 	close_file(file_to);
 
