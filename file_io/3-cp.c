@@ -22,7 +22,7 @@ char *create_buffer(char *file)
 
 /**
  * close_file - closes files
- * @file: file to be closed
+ * @fd: the file descriptor to be closed
  */
 void close_file(int fd)
 {
