@@ -24,11 +24,15 @@ char *create_buffer(char *file)
  * close_file - closes files
  * @file: file to be closed
  */
-void close_file(int file)
+void close_file(int fd)
 {
-	if (close(file) == -1)
+	int c;
+
+	c = close(fd);
+
+	if (c == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close file %d\n", file);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
 }
